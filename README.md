@@ -1,12 +1,6 @@
 # certinfo
 
-Get informations about the certificate from one or more hosts.
-
-If the flag `--threshold`|`-t` `N` is set and the certificate expires in the next `N`-days,
-certinfo will return the exit code 1.
-
-If the flag `--output`|`-o` is set to `json`, certinfo will write all information about the
-certificate to stdout.
+Get informations about the certificate from one or more hostnames.
 
 ## Usage
 
@@ -16,10 +10,11 @@ Usage:
 
 Flags:
   -h, --help                    help for certinfo
-  -o, --output text|json|none   Output format. One of: text|json|none (default "text")
-  -p, --port int                Port to look for TLS certificates on (default 443)
-  -t, --threshold int           error if a certificate expiration time (in days) is less than this
-      --timeout int             time out on TCP dialing (in seconds) (default 5)
+  -o, --output text|json|none   output format, one of text|json|none.
+                                If set to "json", certinfo will write all information about the certificate to stdout (default "text")
+  -p, --port int                port to look for TLS certificates on (default 443)
+  -t, --threshold int           exit certinfo with exit code 1 if a certificate expiration time is less than this (in days)
+      --timeout int             timeout on TCP dialing (in seconds) (default 5)
   -v, --verbose                 log connections
       --version                 version for certinfo
 ```

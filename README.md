@@ -32,7 +32,7 @@ output:
 ```console
 Host: google.io:443
 Certs:
-    Issuer: GTS CA 1C3 [Google Trust Services LLC]
+    Issuer: GTS CA 1C3 (Google Trust Services LLC)
     Subject: *.google.io
     Not Before: Jun 22, 2021 5:47 PM
     Not After: Sep 14, 2021 5:47 PM

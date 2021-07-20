@@ -11,10 +11,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var version string = "1.0.1"
+var version string = "1.0.2"
 
 var rootCmd = &cobra.Command{
-	Use:           "certinfo",
+	Use:           "certinfo HOSTNAME [HOSTNAME ...]",
 	Short:         "Get information about the certificate from one or more hostnames.",
 	Version:       version,
 	Long:          `Get information about the certificate from one or more hostnames.`,

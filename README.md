@@ -6,7 +6,7 @@ Get information about the certificate from one or more hostnames.
 
 ```text
 Usage:
-  certinfo [flags]
+  certinfo HOSTNAME [HOSTNAME ...] [flags]
 
 Flags:
   -h, --help                    help for certinfo

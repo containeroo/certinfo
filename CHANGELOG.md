@@ -7,6 +7,7 @@
 **Bug fixes:**
 
 - correct Issuer Organizations if output is text
+- fix typos in flag descripion
 
 ## [v1.0.0](https://github.com/containeroo/certinfo/tree/v1.0.0) (2020-07-20)
 

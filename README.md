@@ -1,25 +1,21 @@
 # certinfo
 
-Get information about the certificate used at one or more domains. If one of the certificates is expired and the Option `-threshold` is set, the script will exit with the exitcode 1.
+Get information about the certificate used at one or more domains. If one of the certificates is expired and the Option `-threshold`|`-t` is set, the script will exit with the exitcode 1.
 
 ## Usage
 
 ```text
-Usage of certinfo
+Usage:
+  certinfo [flags]
 
-    certinfo [options] <host>...
-
-Options:
-  -output output
-        output output: text, json, or none (default text)
-  -port int
-        Port to look for TLS certificates on (default 443)
-  -threshold int
-        error if a certificate expiration time is less than this in days
-  -timeout int
-        time out in secods on TCP dialing (default 5s)
-  -verbose
-        log connections
+Flags:
+  -h, --help                    help for certinfo
+  -o, --output text|json|none   Output format. One of: text|json|none (default "text")
+  -p, --port int                Port to look for TLS certificates on (default 443)
+  -t, --threshold int           error if a certificate expiration time (in days) is less than this
+      --timeout int             time out on TCP dialing (in seconds) (default 5)
+  -v, --verbose                 log connections
+      --version                 version for certinfo
 ```
 
 ## Examples

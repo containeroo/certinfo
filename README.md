@@ -2,7 +2,7 @@
 
 Get informations about the certificate from one or more hosts.
 
-If the Flag `--threshold`|`-t` `N` is set and the certifcate expires in the next `N`-days,
+If the flag `--threshold`|`-t` `N` is set and the certificate expires in the next `N`-days,
 certinfo will return the exitcode 1.
 
 If the Flag `--output`|`-o` is set to `json`, certinfo will write all information about the

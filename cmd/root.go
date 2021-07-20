@@ -11,20 +11,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var version string = "1.0.0"
+var version string = "1.0.1"
 
 var rootCmd = &cobra.Command{
-	Use:     "certinfo",
-	Short:   "Get information about a host certificate",
-	Version: version,
-	Long: `Get information about a certificate from one or more hostnames.
-
-If the Flag --threshold|-t N is set and the certifcate expires in the next N-days,
-certinfo will return the exitcode 1.
-
-If the Flag --output|-o is set to json, certinfo will write all information about the
-certificate to stdout.
-`,
+	Use:           "certinfo",
+	Short:         "Get information about the certificate from one or more hostnames.",
+	Version:       version,
+	Long:          `Get information about the certificate from one or more hostnames.`,
 	Args:          cobra.MinimumNArgs(1),
 	SilenceErrors: true,
 	RunE: func(cmd *cobra.Command, args []string) error {
@@ -60,9 +53,9 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.Flags().IntP("port", "p", 443, "Port to look for TLS certificates on")
-	rootCmd.Flags().Int("timeout", 5, "time out on TCP dialing (in seconds)")
-	rootCmd.Flags().IntP("threshold", "t", 0, "error if a certificate expiration time (in days) is less than this")
-	rootCmd.Flags().StringP("output", "o", "text", "Output format. One of: `text|json|none`")
+	rootCmd.Flags().IntP("port", "p", 443, "port to look for TLS certificates on")
+	rootCmd.Flags().Int("timeout", 5, "timeout on TCP dialing (in seconds)")
+	rootCmd.Flags().IntP("threshold", "t", 0, "exit certinfo with exit code 1 if a certificate expiration time is less than this (in days)")
+	rootCmd.Flags().StringP("output", "o", "text", "output format, one of: `text|json|none`.\nIf set to \"json\", certinfo will output all information about the certificate")
 	rootCmd.Flags().BoolP("verbose", "v", false, "log connections")
 }

@@ -100,7 +100,7 @@ func writeOutput(output *string, returnInfo *[]hostinfo) {
 Host: {{ .Host }}:{{ .Port }}
 Certs:
     {{ range .Certs -}}
-    Issuer: {{ .Issuer.CommonName }} {{ .Issuer.Organization }}
+    Issuer: {{ .Issuer.CommonName }} ({{ range .Issuer.Organization }}{{ . }}{{ end }})
     Subject: {{ .Subject.CommonName }}
     Not Before: {{ .NotBefore.Format "Jan 2, 2006 3:04 PM" }}
     Not After: {{ .NotAfter.Format "Jan 2, 2006 3:04 PM" }}

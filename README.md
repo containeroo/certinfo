@@ -104,7 +104,7 @@ output:
 ### using in a cronjob with healthchecks.io
 
 ```text
-0 2 * * * root certinfo google.io --output none; curl -fsS -X POST "https://healthchecks.example.com/ping/<UID>$([ echo $? != 0 ] && echo -n /fail)" > /dev/null
+0 2 * * * root certinfo google.io --output none; curl -fsS -X POST "https://healthchecks.example.com/ping/<UID>$([ $? != 0 ] && echo -n /fail)" > /dev/null
 ```
 
 inspired by [certinfo](https://github.com/carlmjohnson/certinfo)

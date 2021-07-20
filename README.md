@@ -1,6 +1,6 @@
 # certinfo
 
-Get information about the certificate used at one or more domains. If one of the certificates is expired and the Option `-threshold`|`-t` is set, the script will exit with the exitcode 1.
+Get information about the certificate used at one or more domains. If one of the certificates is expired and the Option `--threshold`|`-t` is set, the script will exit with the exitcode 1.
 
 ## Usage
 
@@ -41,7 +41,7 @@ Certs:
 ### get certificate from google.io and output the complete certificate information as json
 
 ```bash
-certinfo -output json -verbose google.io
+certinfo --output json --verbose google.io
 ```
 
 output:
@@ -64,7 +64,7 @@ output:
 ### get certificate for google.io and check if the certificate is valid for more than 30 days
 
 ```bash
-certinfo -output none -threshold 30 google.io
+certinfo --output none --threshold 30 google.io
 ```
 
 output:
@@ -74,7 +74,7 @@ there is no output if the certificate expires more than 30 days
 ### get certificate for google.io and check if the certificate is valid for more than 20 days
 
 ```bash
-certinfo -output none -threshold 20 google.io
+certinfo --output none --threshold 20 google.io
 ```
 
 output:
@@ -86,7 +86,7 @@ Problem running certinfo: certificate for *.google.io expires in 60.10 days (at 
 ### get certificate for google.io and extract the expiration date
 
 ```bash
-certinfo -output json example.io | jq -r '.[].Certs[].NotBefore'
+certinfo --output json example.io | jq -r '.[].Certs[].NotBefore'
 ```
 
 output:
@@ -98,7 +98,7 @@ output:
 ### using in a cronjob with healthchecks.io
 
 ```text
-0 2 * * * root certinfo google.io -output none; curl -fsS -X POST "https://healthchecks.example.com/ping/<UID>$([ echo $? != 0 ] && echo -n /fail)" > /dev/null
+0 2 * * * root certinfo google.io --output none; curl -fsS -X POST "https://healthchecks.example.com/ping/<UID>$([ echo $? != 0 ] && echo -n /fail)" > /dev/null
 ```
 
 inspired by [certinfo](https://github.com/carlmjohnson/certinfo)

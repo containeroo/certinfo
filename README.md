@@ -11,7 +11,7 @@ Usage:
 Flags:
   -h, --help                    help for certinfo
   -o, --output text|json|none   output format, one of text|json|none.
-                                If set to "json", certinfo will write all information about the certificate to stdout (default "text")
+                                If set to "json", certinfo will output all information about the certificate (default "text")
   -p, --port int                port to look for TLS certificates on (default 443)
   -t, --threshold int           exit certinfo with exit code 1 if a certificate expiration time is less than this (in days)
       --timeout int             timeout on TCP dialing (in seconds) (default 5)

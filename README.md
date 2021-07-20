@@ -1,6 +1,6 @@
 # certinfo
 
-Get informations about the certificate from one or more hostnames.
+Get information about the certificate from one or more hostnames.
 
 ## Usage
 

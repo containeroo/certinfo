@@ -15,9 +15,9 @@ var version string = "1.0.1"
 
 var rootCmd = &cobra.Command{
 	Use:           "certinfo",
-	Short:         "Get information about a host certificate",
+	Short:         "Get information about the certificate from one or more hostnames.",
 	Version:       version,
-	Long:          `Get information about a certificate from one or more hostnames`,
+	Long:          `Get information about the certificate from one or more hostnames.`,
 	Args:          cobra.MinimumNArgs(1),
 	SilenceErrors: true,
 	RunE: func(cmd *cobra.Command, args []string) error {

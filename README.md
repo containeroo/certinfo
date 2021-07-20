@@ -1,6 +1,12 @@
 # certinfo
 
-Get information about the certificate used at one or more domains. If one of the certificates is expired and the Option `--threshold`|`-t` is set, the script will exit with the exitcode 1.
+Get information about a certificate from one or more hostnames.
+
+If the Flag `--threshold`|`-t` `N` is set and the certifcate expires in the next `N`-days,
+certinfo will return the exitcode 1.
+
+If the Flag `--output`|`-o` is set to `json`, certinfo will write all information about the
+certificate to stdout.
 
 ## Usage
 

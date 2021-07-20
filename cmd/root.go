@@ -56,6 +56,6 @@ func init() {
 	rootCmd.Flags().IntP("port", "p", 443, "port to look for TLS certificates on")
 	rootCmd.Flags().Int("timeout", 5, "timeout on TCP dialing (in seconds)")
 	rootCmd.Flags().IntP("threshold", "t", 0, "exit certinfo with exit code 1 if a certificate expiration time is less than this (in days)")
-	rootCmd.Flags().StringP("output", "o", "text", "output format, one of `text|json|none`.\nIf set to \"json\", certinfo will output all information about the certificate")
+	rootCmd.Flags().StringP("output", "o", "text", "output format, one of: `text|json|none`.\nIf set to \"json\", certinfo will output all information about the certificate")
 	rootCmd.Flags().BoolP("verbose", "v", false, "log connections")
 }

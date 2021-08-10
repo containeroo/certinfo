@@ -13,6 +13,7 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/Masterminds/sprig"
 	"github.com/carlmjohnson/errutil"
 )
 
@@ -95,16 +96,17 @@ func writeOutput(output *string, returnInfo *[]hostinfo) {
 		errs.Push(err)
 
 	case "text":
-		t := template.Must(template.New("").Parse(`
+		fmap := sprig.TxtFuncMap()
+		t := template.Must(template.New("").Funcs(fmap).Parse(`
 {{- range . -}}
 Host: {{ .Host }}:{{ .Port }}
 Certs:
     {{ range .Certs -}}
-    Issuer: {{ .Issuer.CommonName }} ({{ range .Issuer.Organization }}{{ . }}{{ end }})
-    Subject: {{ .Subject.CommonName }}
-    Not Before: {{ .NotBefore.Format "Jan 2, 2006 3:04 PM" }}
-    Not After: {{ .NotAfter.Format "Jan 2, 2006 3:04 PM" }}
-    DNS names: {{ range .DNSNames }}{{ . }} {{ end }}
+    Issuer:     {{ .Issuer.CommonName }} ({{ range .Issuer.Organization }}{{ . }}{{ end }})
+    Subject:    {{ .Subject.CommonName }}
+    Not Before: {{ date "Monday, 2 January 2006 at 15:04:05 (MST)" .NotBefore }}
+    Not After:  {{ date "Monday, 2 January 2006 at 15:04:05 (MST)" .NotAfter }}
+    DNS names:  {{ range .DNSNames }}{{ . }} {{ end }}
 {{ end }}
 {{ end -}}
         `))

@@ -32,11 +32,11 @@ output:
 ```console
 Host: google.io:443
 Certs:
-    Issuer: GTS CA 1C3 (Google Trust Services LLC)
-    Subject: *.google.io
-    Not Before: Jun 22, 2021 5:47 PM
-    Not After: Sep 14, 2021 5:47 PM
-    DNS names: *.google.io google.io
+    Issuer:     GTS CA 1C3 (Google Trust Services LLC)
+    Subject:    *.google.io
+    Not Before: Monday, 12 July 2021 at 07:24:53 (CEST)
+    Not After:  Monday, 4 October 2021 at 07:24:52 (CEST)
+    DNS names:  *.google.io google.io
 ```
 
 ### get certificate from google.io and output the complete certificate information as json

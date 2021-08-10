@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var version string = "1.0.2"
+var version string = "1.1.0"
 
 var rootCmd = &cobra.Command{
 	Use:           "certinfo HOSTNAME [HOSTNAME ...]",

@@ -25,13 +25,13 @@ type hostinfo struct {
 	Certs []*x509.Certificate
 }
 
-func fetchHostCertInfo(hosts []string, port int, timeout time.Duration) *[]hostinfo {
+func fetchHostCertInfo(hosts []string, port int, timeout time.Duration, retry int) *[]hostinfo {
 	hostnames := parseHostnames(hosts)
 
 	returnInfo := make([]hostinfo, 0, len(*hostnames))
 	for _, host := range *hostnames {
 		info := hostinfo{Host: host, Port: port}
-		err := info.getCerts(&timeout)
+		err := info.getCerts(&timeout, retry)
 		if err != nil {
 			errs.Push(err)
 			continue
@@ -55,18 +55,28 @@ func parseHostnames(hosts []string) *[]string {
 	return &hosts
 }
 
-func (h *hostinfo) getCerts(timeout *time.Duration) error {
+func (h *hostinfo) getCerts(timeout *time.Duration, retry int) error {
 	log.Printf("connecting to %s:%d", h.Host, h.Port)
+
+	var conn *tls.Conn
+	var err error
 	dialer := &net.Dialer{Timeout: *timeout}
-	conn, err := tls.DialWithDialer(
-		dialer,
-		"tcp",
-		h.Host+":"+strconv.Itoa(h.Port),
-		&tls.Config{
-			InsecureSkipVerify: true,
-		})
-	if err != nil {
-		return err
+
+	for i := 0; i < retry; i++ {
+		conn, err = tls.DialWithDialer(
+			dialer,
+			"tcp",
+			h.Host+":"+strconv.Itoa(h.Port),
+			&tls.Config{
+				InsecureSkipVerify: true,
+			})
+		if err == nil {
+			break
+		}
+		log.Printf("attemp %d/%d. %s", i+1, retry, err)
+	}
+	if conn == nil {
+		return fmt.Errorf("cannot connect to '%s'", h.Host+":"+strconv.Itoa(h.Port))
 	}
 	defer conn.Close()
 

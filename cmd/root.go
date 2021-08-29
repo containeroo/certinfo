@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var version string = "1.1.0"
+var version string = "1.2.0"
 
 var rootCmd = &cobra.Command{
 	Use:           "certinfo HOSTNAME [HOSTNAME ...]",
@@ -24,6 +24,7 @@ var rootCmd = &cobra.Command{
 		verbose, _ := cmd.Flags().GetBool("verbose")
 		port, _ := cmd.Flags().GetInt("port")
 		timeout, _ := cmd.Flags().GetInt("timeout")
+		retry, _ := cmd.Flags().GetInt("retry")
 		threshold, _ := cmd.Flags().GetInt("threshold")
 
 		output, _ := cmd.Flags().GetString("output")
@@ -36,7 +37,7 @@ var rootCmd = &cobra.Command{
 			log.SetOutput(io.Discard)
 		}
 
-		returnInfo := fetchHostCertInfo(args, port, time.Duration(timeout)*time.Second)
+		returnInfo := fetchHostCertInfo(args, port, time.Duration(timeout)*time.Second, retry)
 
 		writeOutput(&output, returnInfo)
 		checkCertExpiration(time.Duration(threshold*24)*time.Hour, returnInfo)
@@ -55,6 +56,7 @@ func Execute() {
 func init() {
 	rootCmd.Flags().IntP("port", "p", 443, "port to look for TLS certificates on")
 	rootCmd.Flags().Int("timeout", 5, "timeout on TCP dialing (in seconds)")
+	rootCmd.Flags().IntP("retry", "r", 5, "retry request if transient problems occur")
 	rootCmd.Flags().IntP("threshold", "t", 0, "exit certinfo with exit code 1 if a certificate expiration time is less than this (in days)")
 	rootCmd.Flags().StringP("output", "o", "text", "output format, one of: `text|json|none`.\nIf set to \"json\", certinfo will output all information about the certificate")
 	rootCmd.Flags().BoolP("verbose", "v", false, "log connections")

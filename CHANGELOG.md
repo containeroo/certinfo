@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.2.0](https://github.com/containeroo/certinfo/tree/v1.2.0) (2021-08-29)
+
+[All Commits](https://github.com/containeroo/certinfo/compare/v1.1.0...v1.2.0)
+
+**feature:**
+
+- add flag 'retry' to repeat tls connection
+
 ## [v1.1.0](https://github.com/containeroo/certinfo/tree/v1.1.0) (2021-08-10)
 
 [All Commits](https://github.com/containeroo/certinfo/compare/v1.0.2...v1.1.0)

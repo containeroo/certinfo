@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.3.0](https://github.com/containeroo/certinfo/tree/v1.3.0) (2021-12-15)
+
+[All Commits](https://github.com/containeroo/certinfo/compare/v1.2.0...v1.3.0)
+
+**dependencies:**
+
+- update github.com/spf13/cobra to v1.3.0
+
 ## [v1.2.0](https://github.com/containeroo/certinfo/tree/v1.2.0) (2021-08-29)
 
 [All Commits](https://github.com/containeroo/certinfo/compare/v1.1.0...v1.2.0)

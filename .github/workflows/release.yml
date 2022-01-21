@@ -1,78 +1,32 @@
----
+name: Release
 on:
-  release:
-    types:
-      - created
+  push:
+    tags:
+      - v*
 
 jobs:
-  release-linux-amd64:
-    name: release linux/amd64
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: wangyoucao577/go-release-action@v1.22
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          goos: linux
-          goarch: amd64
-          binary_name: certinfo
-
-  release-linux-arm:
-    name: release linux/arm
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: wangyoucao577/go-release-action@v1.22
+          fetch-depth: "0"
+      - name: Build changelog from PRs with labels
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          goos: linux
-          goarch: arm
-          binary_name: certinfo
-
-  release-linux-arm64:
-    name: release linux/arm64
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: wangyoucao577/go-release-action@v1.22
+          configuration: ".github/changelog-configuration.json"
+          # PreReleases still get a changelog, but the next full release gets a diff since the last full release,
+          # combining possible changelogs of all previous PreReleases in between.
+          # PreReleases show a partial changelog since last PreRelease.
+          ignorePreReleases: "${{ !contains(github.ref, '-rc') }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release
+        uses: ncipollo/release-action@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          goos: linux
-          goarch: arm64
-          binary_name: certinfo
-
-  release-darwin-amd64:
-    name: release darwin/amd64
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: wangyoucao577/go-release-action@v1.22
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          goos: darwin
-          goarch: amd64
-          binary_name: certinfo
-
-  release-darwin-arm64:
-    name: release darwin/arm64
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: wangyoucao577/go-release-action@v1.22
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          goos: darwin
-          goarch: arm64
-          binary_name: certinfo
-
-  release-windows-amd64:
-    name: release windows/amd64
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: wangyoucao577/go-release-action@v1.22
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          goos: windows
-          goarch: amd64
-          binary_name: certinfo
+          body: ${{steps.build_changelog.outputs.changelog}}
+          prerelease: "${{ contains(github.ref, '-rc') }}"
+          # Ensure target branch for release is "master"
+          commit: master
+          token: ${{ secrets.GITHUB_TOKEN }}

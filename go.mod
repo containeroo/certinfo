@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/Masterminds/sprig v2.22.0+incompatible
+	github.com/Masterminds/sprig/v3 v3.2.2
 	github.com/carlmjohnson/errutil v0.21.5
 	github.com/spf13/cobra v1.5.0
 )

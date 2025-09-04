@@ -8,6 +8,10 @@ builds:
   - main: ./cmd/certinfo/main.go
     env:
       - CGO_ENABLED=0
+    ldflags:
+      - -s -w
+      - -X main.Version={{ .Tag }}
+      - -X main.Commit={{ .FullCommit }}
     goos:
       - linux
       - darwin

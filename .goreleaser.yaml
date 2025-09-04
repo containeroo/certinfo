@@ -4,7 +4,7 @@ before:
   hooks:
     - go mod tidy
 builds:
-  - main: ./main.go
+  - main: ./cmd/certinfomain.go
     env:
       - CGO_ENABLED=0
     goos:

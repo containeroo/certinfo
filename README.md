@@ -7,17 +7,16 @@ Get information about the certificate from one or more hostnames.
 ```text
 Usage:
   certinfo HOSTNAME [HOSTNAME ...] [flags]
-
 Flags:
-  -h, --help                    help for certinfo
-  -o, --output text|json|none   output format, one of: text|json|none.
-                                If set to "json", certinfo will output all information about the certificate (default "text")
-  -p, --port int                port to look for TLS certificates on (default 443)
-  -r, --retry int               retry request if transient problems occur (default 5)
-  -t, --threshold int           exit certinfo with exit code 1 if a certificate expiration time is less than this (in days)
-      --timeout int             timeout on TCP dialing (in seconds) (default 5)
-  -v, --verbose                 log connections
-      --version                 version for certinfo
+        --timeout TIMEOUT          Dial timeout (Default: 5s)
+        --retry RETRY              Retry attempts for TCP connect (Default: 2)
+        --output <text|json|none>  Output format: (Default: text)
+        --threshold THRESHOLD      Warn if cert expires within this duration (e.g. 720h) (Default: 0s)
+        --proxy PROXY              Proxy URL (http[s]:// or socks5[h]://). Overrides env. [Group: proxy-choice (One Of)]
+        --no-proxy                 Bypass all proxies. Overrides --proxy and env. [Group: proxy-choice (One Of)]
+    -s, --silent                   Suppress normal output; only print expiration warnings
+    -h, --help                     Show help
+        --version                  Show version
 ```
 
 ## Examples

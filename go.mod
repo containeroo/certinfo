@@ -5,7 +5,7 @@ go 1.25.0
 require (
 	github.com/carlmjohnson/errutil v0.21.5
 	github.com/containeroo/tinyflags v0.0.49
-	golang.org/x/net v0.43.0
+	golang.org/x/net v0.44.0
 )
 
-require golang.org/x/text v0.28.0 // indirect
+require golang.org/x/text v0.29.0 // indirect

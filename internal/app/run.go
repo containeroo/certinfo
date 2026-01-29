@@ -2,7 +2,6 @@ package app
 
 import (
 	"context"
-	"fmt"
 	"io"
 
 	"github.com/containeroo/certinfo/internal/certinfo"
@@ -16,23 +15,27 @@ import (
 func Run(ctx context.Context, version, commit string, args []string, w io.Writer) error {
 	// Parse and validate command-line flags.
 	opts, err := flag.ParseFlags(args, version)
+
+	// Setup logger immediately so startup errors are correctly logged.
+	logger := logging.SetupLogger(w, opts.Level)
+
 	if err != nil {
 		if tinyflags.IsHelpRequested(err) || tinyflags.IsVersionRequested(err) {
 			_, _ = io.WriteString(w, err.Error())
 			return nil
 		}
-		return fmt.Errorf("CLI flags error: %w", err)
+		logger.Error("CLI flags error", "err", err)
+		return err
 	}
 	if len(opts.Hosts) == 0 {
-		return fmt.Errorf("no hosts provided")
+		logger.Error("no hosts provided")
+		return err
 	}
-
-	// Setup logger.
-	logger := logging.SetupLogger(w, opts.Level)
 
 	// Set dial policy from flags: --no-proxy > --proxy > environment.
 	var policy certinfo.DialPolicy
 	if err := certinfo.SetPolicy(&policy, opts.NoProxy, opts.Proxy); err != nil {
+		logger.Error("error setting proxy policy", "err", err)
 		return err
 	}
 
@@ -46,5 +49,9 @@ func Run(ctx context.Context, version, commit string, args []string, w io.Writer
 	output.CheckCertExpiration(opts.Threshold, infos)
 
 	// Merge and print any errors collected during processing.
-	return certinfo.WriteErrors(opts.Output)
+	if err := certinfo.WriteErrors(opts.Output); err != nil {
+		logger.Error("error writing output", "err", err)
+	}
+
+	return nil
 }

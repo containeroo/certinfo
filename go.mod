@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
 	github.com/carlmjohnson/errutil v0.21.5
-	github.com/containeroo/tinyflags v0.0.61
+	github.com/containeroo/tinyflags v0.0.62
 	golang.org/x/net v0.49.0
 )
 
